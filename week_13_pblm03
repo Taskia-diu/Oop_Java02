@@ -1,0 +1,21 @@
+import java.util.Map;
+import java.util.List;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ParallelLetterFrequency {
+
+    public Map<Character, Integer> count(List<String> texts) {
+        Map<Character, Integer> frequency = new ConcurrentHashMap<>();
+
+        texts.parallelStream().forEach(text -> {
+            for (char c : text.toCharArray()) {
+                if (Character.isLetter(c)) {
+                    frequency.merge(c, 1, Integer::sum);
+                }
+            }
+        });
+
+        return new HashMap<>(frequency);
+    }
+}
