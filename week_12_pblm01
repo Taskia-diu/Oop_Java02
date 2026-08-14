@@ -1,0 +1,16 @@
+class Singleton {
+
+    private Singleton() {
+    }
+
+    public String str;
+
+    private static Singleton singleInstance = null;
+
+    public static Singleton getSingleInstance() {
+        if (singleInstance == null) {
+            singleInstance = new Singleton();
+        }
+        return singleInstance;
+    }
+}
