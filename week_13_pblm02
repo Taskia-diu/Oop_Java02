@@ -1,0 +1,40 @@
+public class BankAccount {
+
+    private long balance;
+    private boolean open;
+
+    public synchronized void open() {
+        if (open) {
+            throw new IllegalStateException();
+        }
+        open = true;
+    }
+
+    public synchronized void close() {
+        if (!open) {
+            throw new IllegalStateException();
+        }
+        open = false;
+    }
+
+    public synchronized long getBalance() {
+        if (!open) {
+            throw new IllegalStateException();
+        }
+        return balance;
+    }
+
+    public synchronized void deposit(long amount) {
+        if (!open || amount <= 0) {
+            throw new IllegalArgumentException();
+        }
+        balance += amount;
+    }
+
+    public synchronized void withdraw(long amount) {
+        if (!open || amount <= 0 || amount > balance) {
+            throw new IllegalArgumentException();
+        }
+        balance -= amount;
+    }
+}
